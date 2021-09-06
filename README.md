@@ -17,7 +17,7 @@ This repostiory attempts to build a machine that will follow CVD process providi
 
 | Input | Processing-Engine | Output | Audience 
 | --- | --- | ---  | --- |
-| [Vendor_search](./schema/vendor_search.schema.json) | [Discovery-Engine](./machine/discovery.py) | [Report_methods](./schema/report_methods.schema.json) | Finder 
+| [Vendor_search](./schema/vendor_search.schema.json) | [Discovery-Engine](./machine/discover.py) | [Report_methods](./schema/report_methods.schema.json) | Finder 
 | Vul_report | Reporting-Service | Vul_report | Coordinator 
 | Vul_report | Triage-Manager | Vul_coordinate | Finder,Coordinator,Vendor 
 | Vul_coordinate | Remediation-Broker | Vul_remediate | Finder,Coordinator,Vendor 
