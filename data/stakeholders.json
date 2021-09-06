@@ -1,0 +1,69 @@
+[
+    {
+	"default": true,
+	"stakeholders": [
+	    {
+		"type": "CERT",
+		"name": "CERT",
+		"method": "web",
+		"contact_url": "https://kb.cert.org/vince",
+		"access": "registered_user",
+		"access_tokens": [
+		    "api_key",
+		    "2fa"
+		],
+		"fees": "none",
+		"schema": "https://vuls.cert.org/schemas/vul_report.json",
+		"submission": "HTTP_POST",
+		"policy_url": "https://vuls.cert.org/confluence/display/Wiki/Vulnerability+Disclosure+Policy",
+		"last_verified": 1629309447
+	    }
+	]
+    },
+    {
+	"vendor": "Microsoft",
+	"product": "Windows",
+	"default": false,
+	"stakeholders": [
+	    {
+		"type": "vendor_psirt",
+		"name": "Microsoft",
+		"method": "email",
+		"contact_url": "mailto:security@microsoft.com",
+		"access": "public",
+		"policy_url": "https://microsoft.com/psirt/terms",
+		"last_verified": 1629309447
+	    },
+	    {
+		"type": "vendor_bugbounty",
+		"name": "Microsoft",
+		"method": "email",
+		"contact_url": "https://microsoft.com/bugbounty",
+		"access": "registered_user",
+		"fees": "unknown",
+		"access_tokens": [
+		    "password",
+		    "oauth"
+		],
+		"policy_url": "https://microsoft.com/bugbounty/terms",
+		"last_verified": 1629309447
+	    },
+	    {
+		"type": "bugbounty_third_party",
+		"name": "Hacker One",
+		"method": "web",
+		"contact_url": "https://hackerone.com/sign_up",
+		"access": "registered_user",
+		"access_tokens": [
+		    "password",
+		    "2fa"
+		],
+		"fees": "none",
+		"policy_url": "https://www.hackerone.com/terms/finder",
+		"last_verified": 1629309447
+	    }
+	]
+    }
+]
+
+

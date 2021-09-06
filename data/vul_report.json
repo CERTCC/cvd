@@ -1,0 +1,249 @@
+{
+    "document_type": "vulnerability_report",
+    "version": "1.0.0",
+    "description": "Vulnerability Reporting format CVD guide 2021.08.1101",
+    "contacts": [
+	{
+	    "type": "vendor",
+	    "role": "vendor",
+	    "name": "Microsoft",
+	    "organization": "Microsoft Inc.",
+	    "email": "security@microsoft.com",
+	    "contact_id": "security@microsoft.com",
+	    "policies": [
+		{
+		    "type": "bug_bounty",
+		    "value": "https://www.microsoft.com/en-us/msrc/bounty-terms",
+		    "description": "Microsoft Bounty Terms and Conditions"
+		},
+		{
+		    "type": "cvd",
+		    "value": "https://www.microsoft.com/en-us/msrc/cvd",
+		    "description": "PSIRT CVD guide"
+		}
+	    ],
+	    "contact_methods":[
+		{
+		    "type": "email",
+		    "pgp": true,
+		    "pgp_keyid": "a8e59fcfe1ca6b35",
+		    "value": "security@microsoft.com"
+		},
+		{
+		    "type": "webform",
+		    "value": "https://security-report.microsoft.com"
+		}
+	    ]
+	},
+	{
+	    "type": "reporter",
+	    "role": "finder",
+	    "name": "Joe Dane",
+	    "organization": "Boo Security LLC",
+	    "email": "joe.dane@hacker.com",
+	    "contact_id": "joe.dane@hacker.com",
+	    "share_with_vendor": true,
+	    "public_acknowledgement": true,
+	    "policies": [],
+	    "contact_methods":[
+		{
+		    "type": "social",
+		    "value": "twitter/@joedane"
+		},
+		{
+		    "type": "email",
+		    "pgp": false,
+		    "value": "joe.dane@hacker.com"
+		}
+	    ]
+	},
+	{
+	    "type": "reporter",
+	    "role": "finder",
+	    "name": "Lisa Davis",
+	    "organization": "Lisa Davis",
+	    "email": "lisa.davis@vulfind.com",
+	    "contact_id": "lisa.david@vulfind.com",
+	    "share_with_vendor": true,
+	    "public_acknowledgement": true,
+	    "policies": [
+		{
+		    "type": "bug_bounty",
+		    "url": "https://www.hackerone.com/terms/supplier-security"
+		}
+	    ]
+	}
+    ],
+    "vulnerabilities": [
+	{
+	    "type": "Insecure Permissions",
+	    "summary": "A remote code execution vulnerability exists when the Windows Print Spooler service improperly performs privileged file operations",
+	    "full_description": "A remote code execution vulnerability exists when the Windows Print Spooler service improperly performs privileged file operations",
+	    "impact": "An attacker who successfully exploited this vulnerability could run arbitrary code with SYSTEM privileges. An attacker could then install programs; view, change, or delete data; or create new accounts with full user rights.",
+	    "public": false,
+	    "pocs":[
+		{
+		    "type": "script",
+		    "sharing": [
+			{
+			    "permissions": "private",
+			    "contact_id": "security@microsoft.com"
+			},
+			{
+			    "permissions": "private",
+			    "contact_id": "cert@cert.org"
+			}
+		    ],
+		    "url": "https://github.com/cube0x0/CVE-2021-1675",
+		    "timestamp": 1629304720,
+		    "release_version_tag": "commit.e888933",
+		    "checksums": [],
+		    "content": "",
+		    "actively_exploited": false
+		}
+	    ],
+	    "disclosure_plans": [
+		{
+		    "type": "conference",
+		    "audience": "public",
+		    "url": "https://blackhat.com/USA/2021",
+		    "timestamp": 1629304720
+		},
+		{
+		    "type": "private_forum",
+		    "audience": "private",
+		    "url": "https://www.fsisac.com/affiliate-program",
+		    "timestamp": 1629302720
+		},
+		{
+		    "type": "website",
+		    "audience": "public",
+		    "url": "https://myblog.hacker.com",
+		    "timestamp": 1629302720
+		}
+	    ],
+	    
+	    "cve": "CVE-0000-0000",
+	    "product_status": [
+		{
+		    "id": "a8698171",
+		    "status": "verified"
+		},
+		{
+		    "id": "a8698172",
+		    "status": "unverified"
+		}
+	    ],
+	    "severity_scores": [
+		{
+		    "type": "ssvc_v2",
+		    "content": {
+			"timestamp": "2021-08-18T16:45:16.523Z",
+			"timestamp_epoch_ms": 1629305116523,
+			"role": "Coordinator",
+			"id": "CVE-2020-5847",
+			"version": "2.0",
+			"computed": "SSVCv2/E:P/V:R/T:T/M:L/D:T/1629305116/",
+			"choices": [
+			    {
+				"Exploitation": "poc"
+			    },
+			    {
+				"Virulence": "rapid"
+			    },
+			    {
+				"Technical Impact": "total"
+			    },
+			    {
+				"Mission &amp; Well-being": "low"
+			    },
+			    {
+				"Decision": "Track"
+			    }
+			]
+		    }
+		},
+		{
+		    "type": "cvss_v3",
+		    "content": {
+			"version": "3.0",
+			"vectorString": "CVSS:3.0/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H",
+			"attackVector": "NETWORK",
+			"attackComplexity": "HIGH",
+			"privilegesRequired": "NONE",
+			"userInteraction": "NONE",
+			"scope": "UNCHANGED",
+			"confidentialityImpact": "HIGH",
+			"integrityImpact": "HIGH",
+			"availabilityImpact": "HIGH",
+			"baseScore": 8.1,
+			"baseSeverity": "HIGH"
+		    }
+		}
+	    ]
+	}
+    ],
+    "reporting_actions": [
+	{
+	    "type": "contact_vendor",
+	    "timestamp": 1629300720,
+	    "vendor_id": "security@microsoft.com",
+	    "response": "reject",
+	    "reporter_id": "lisa.davis@vulfind.com"
+	},
+	{
+	    "type": "contact_vendor",
+	    "timestamp": 1629300800,
+	    "vendor_id": "security@microsoft.com",
+	    "response": "under_investigation",
+	    "reporter_id": "lisa.davis@vulfind.com"	    
+	}
+	
+    ],
+    "files": [
+	{
+	    "type": "poc",
+	    "filename": "print_attack.exe",
+	    "url": "file://upload.cert.org/id/sha256%3A0d67dcce26fdb99593a65020571fbea1ace8dd80",
+	    "checksum": [{
+		"type": "sha256",
+		"value": "0d67dcce26fdb99593a65020571fbea1ace8dd80"
+	    }]
+	    
+	}
+    ],
+    "product_tree": [
+	{
+	    "branches": [
+		{
+		    "category": "vendor",
+		    "name": "Microsoft",
+		    "branches": [
+			{
+			    "category": "product_name",
+			    "name": "Windows Server",
+			    "branches": [
+				{
+				    "category": "product_version",
+				    "name": "Windows Server 2012 R2",
+				    "product": {
+					"product_id": "a8698171",
+					"name": "Microsoft Windows Server 2012 R2"
+				    }
+				},
+				{
+				    "category": "product_version",
+				    "name": "Windows Server 2012",
+				    "product": {
+					"product_id": "a8698172",
+					"name": "Microsoft Server 2012"
+				    }
+				}		  
+			    ]
+			}
+		    ]
+		}
+	    ]
+	}
+    ]
+}

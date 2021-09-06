@@ -1,0 +1,28 @@
+.adapt {
+    width:100%;
+    min-height: 600px;
+    display:inline-block;
+    position:relative;
+}
+.editor {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+.fade:not(.show) {
+    display: none;
+}
+#processing {
+    position: absolute;
+    background: lightblue;
+    border-radius: 4px;
+}
+#alerter {
+    position: absolute;
+    width: inherit;
+}
+#editorsdiv {
+    position: relative;
+}

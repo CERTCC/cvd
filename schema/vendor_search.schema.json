@@ -1,0 +1,54 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://democert.org/cvd/vendor_search.schema.json",
+    "title": "Vendor search by a security researcher",	
+    "description": "Vulnerability reporting discovery search for a vendor and product and version following CERT Coordinated Vulnerability Disclosure (CVD) guide 2021.08.1101",
+    "type": "object",
+    "properties": {
+	"document_type": {
+	    "type": "string",
+	    "description": "A string representing the type of document that is being considered",
+	    "enum": ["vendor_search","vendor_product_search"]
+	},
+	"version": {
+	    "type": "string",
+	    "description": "Version of the vendor search protocol submitted",
+	    "example": "1.0.0"
+	},
+	"title": {
+	    "type": "string",
+	    "description": "Optional title given to your search performed",
+	    "example": "Search to report buffer overflow in Apache/httpd/2.0.1"
+	},
+	"search": {
+	    "type": "array",
+	    "description": "An array of search criterea presented by the security researcher for finding vendor contacts",
+	    "minItems": 1,
+	    "items": {
+		"type": "object",
+		"description": "A tuple of vendor - product - version for performing the search. Minimum of vendor and product are required",
+		"minProperties": 2,
+		"properties": {
+		    "vendor" : {
+			"type": "string",
+			"description": "Vendor or provider of the software that has been found with vulnerabilitiy",
+			"examples": ["Microsoft","Apache Software Foundation","Linux Foundation"]
+		    },
+		    "product": {
+			"type": "string",
+			"description": "The software product that has been found with vulnerabilitiy",
+			"examples": ["Windows","httpd","awk"]
+		    },
+		    "version": {
+			"type": "string",
+			"description": "Version of the software product that has been found with vulnerability (optional)",
+			"examples": ["2000","2.4.0","1.0"]
+			
+		    }
+		}
+	    },
+	    "required": ["vendor", "product"]
+	}
+    },
+    "required": [ "document_type","version","search" ]
+}

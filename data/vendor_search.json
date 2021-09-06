@@ -1,0 +1,11 @@
+{
+    "document_type" : "vendor_search",
+    "version": "1.0.0",
+    "title": "Vulnerability reporting discovery search for Microsoft/Windows printserver vulnerability that can result in RCE",
+    "search": [
+	{
+	    "vendor" : "Microsoft",
+	    "product" : "Windows"
+	}
+    ]
+}
