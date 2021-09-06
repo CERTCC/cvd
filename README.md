@@ -12,11 +12,12 @@ This CVD repository is an implementaion of [CVD Guide](https://vuls.cert.org/con
 | Public Awareness | Publishes report | Publishes report | Publishes report | Publishes report | Receives Report |
 | Deployment | - | - | - | Monitors Deployment | Deploys fixes and/or mitigations |
 
-This repostiory attempts to build a machine that will follow CVD process providing both **CVD data schemas** and related **CVD processing engines** that will carry us through these phases.  
+This repostiory attempts to build a machine that will follow CVD process providing both **CVD data schemas** and related **CVD processing engines** that will carry us through these phases.  The diagram below and the related table are ongoing work in this area to create a schema and a machine that will process the schema and advance CVD through its phases.
+![Alt text](./cvd-flow.png?raw=true "CVD Flow")
 
 | Input | Processing-Engine | Output | Audience 
 | --- | --- | ---  | --- |
-| [Vendor_search](./schema/vendor_search_schema.json) | [Discovery-Engine](./machine/discovery.py) | (Report_methods)[./machine/report_methods_schema.json) | Finder 
+| [Vendor_search](./schema/vendor_search_schema.json) | [Discovery-Engine](./machine/discovery.py) | [Report_methods](./machine/report_methods_schema.json) | Finder 
 | Vul_report | Reporting-Service | Vul_report | Coordinator 
 | Vul_report | Triage-Manager | Vul_coordinate | Finder,Coordinator,Vendor 
 | Vul_coordinate | Remediation-Broker | Vul_remediate | Finder,Coordinator,Vendor 
