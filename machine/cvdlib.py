@@ -9,11 +9,13 @@ from jsonschema import Draft4Validator
 
 syslog.openlog(ident="cvd_machine",logoption=syslog.LOG_PID,
                facility=syslog.LOG_USER)
-schemator = {"discovery": "vendor_search", "reporting": "vul_report",
-             "triage": "vul_coordinate", "remediation": "vul_remediate",
-             "public_awareness": "vul_notice", "deployment": "vul_metrics"}
+schemator = {"discover": ["vendor_search", "report_methods"],
+             "reporting": ["vul_report", "vul_coordinate"],
+             "triage": ["vul_coordinate", "vul_remediate"],
+             "remediation": ["vul_remediate", "vul_notice"],
+             "public_awareness": ["vul_notice",  "vul_metrics"]}
 
-def error_output(errmsg,backend=None):
+def error_out(errmsg,backend=None):
     err = {"error": errmsg}
     if backend != None:
         err["backend"] = backend
@@ -31,7 +33,7 @@ def error_exit(ex_cls, ex, tb):
         remote_ip = os.environ['REMOTE_ADDR']
     syslog.syslog('Error line No. '+str(lineno)+', Filename: '+filename+
                   ',error'+str(ex)+', IP: '+remote_ip)
-    error_output(str(ex))
+    error_out(str(ex))
 
 
 def jsonvalidation(json_doc, schema_doc):
@@ -44,4 +46,8 @@ def jsonvalidation(json_doc, schema_doc):
         for error in errors:
             sys.stderr.write("Record did not pass: \n")
             sys.stderr.write(str(error.message) + "\n")
-        error_exit("Schema validation failed",errors);
+        error_out("Schema validation failed",errors);
+
+def safe_filename(ifname):
+    return ifname.replace("..","").replace("/","").replace("\\","").replace("\00","").replace("|","")
+

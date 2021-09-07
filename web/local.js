@@ -4,8 +4,8 @@ var inputs = ["vendor_search","vul_report","vul_report","vul_coordinate",
 var feeds = ["stakeholders"]
 var outputs = ["report_methods","vul_report","vul_coordinate",
 	       "vul_remediate","vul_notice","vul_metrics"]
-var steps = ["Discover","Report","Triage","Remediate","Public_Awareness",
-	 "Deployment"]
+var steps = ["discover","report","triage","remediate","public_awareness",
+	     "deployment"]
 
 function pretty_json(j) {
     return JSON.stringify(j,null,'\t');
@@ -24,7 +24,7 @@ function clear_schema() {
     $(".hide-schema").toggleClass("d-none");    
 }
 function load_schema(a,offset) {
-    var schema_url = a.id;
+    var schema_url = "../schema/"+a.id;
     $.getJSON(schema_url).done(function(f) {
 	var xindex = parseInt(a.getAttribute('jindex')) + offset;
 	a.classList.add("d-none");
@@ -38,7 +38,7 @@ function load_schema(a,offset) {
     })
 
 }
-function perform_action(input_editor,output_editor) {
+function perform_action(input_editor,output_editor,input_div,output_div) {
     var ijraw = input_editor.getValue();
     $(".oschema").removeClass("d-none");
     $(".ischema").addClass("d-none");    
@@ -49,48 +49,29 @@ function perform_action(input_editor,output_editor) {
 	},2000);
 	return;
     }
+    input_editor.oldValue = ijraw
     $('#processing').html("Processing").removeClass("d-none");
-    if(('jindex' in input_editor) && (feeds[input_editor.jindex])) {
-	var ijson = JSON.parse(ijraw);
-	var getvar = feeds[input_editor.jindex];
-	input_editor.oldValue = ijson;
-	$.getJSON(getvar+".json").done(function(d) {
-	    var ojson = JSON.parse(output_editor.getValue())
-	    ojson['inputs'] = ijson['search'];
-	    if(('title' in ijson) && ('title' in ojson))
-		ojson.title = "Results for "+ijson.title+", using CERT API";
-	    ojson[getvar] = [];
-	    for(var i=0; i < d.length; i++) {
-		if(('default' in d[i]) && (d[i]['default'] == true)) {
-		    ojson[getvar].push(d[i][getvar]);
-		} else if('search' in ijson) {
-		    for(var j = 0; j < ijson.search.length; j++) {
-			var skeys = ijson.search[j];
-			var ik = Object.keys(skeys);
-			var match = true;
-			for(var k = 0; k < ik.length; k++) {
-			    var dkey = ik[k]
-			    if(skeys[dkey].toLowerCase() == d[i][dkey].toLowerCase())
-				match = match && true;
-			    else
-				match = false;
-			}
-		    /* Everything matches add this entry to output json*/
-		    if(match)
-			ojson[getvar].push(d[i][getvar]);
-		    }
-		}
-	    }
-	    output_editor.setValue(pretty_json(ojson));
-	    make_alert("Updated output with "+ojson[getvar].length+" "+
-		       getvar+" entries!","success");
-	}).always(function() {
-	    $('#processing').fadeOut().addClass("d-none").fadeIn();	    
-	}).fail(function() {
-	    console.log(arguments);
-	    make_alert("Failed to fetch data for output","danger");
-	})
-    }
+    $(output_div).css({opacity: 0.3});
+    $.ajax({
+	url: "../machine/"+steps[input_editor.jindex]+".py",
+	contentType: "application/json",
+	dataType: "json",
+	data: ijraw,
+	type: "POST"
+    }).done(function(d) {
+	var ojson = JSON.parse(output_editor.getValue());
+	output_editor.setValue(pretty_json(d));
+	make_alert("Update in progress","success");
+	//make_alert("Updated output with "+ojson[getvar].length+" "+
+	//	   getvar+" entries!","success");
+    }).always(function() {
+	$('#processing').fadeOut().addClass("d-none").fadeIn();
+	$(output_div).css({opacity: 1});
+    }).fail(function() {
+	console.log(arguments);
+	make_alert("Failed to fetch data for output","danger");
+	    
+    })
 
 }
 
@@ -146,7 +127,7 @@ $(function() {
 	    .appendTo("#"+dname);
 	$("<div>").addClass("tab-pane fade show active adapt").attr({
 	    "id": dname+"-1",
-	"role": "tabpanel",
+	    "role": "tabpanel",
 	    "aria-labelledby": dname+"-1-tab"}).appendTo("#"+dname);
 	$("<div>").addClass("tab-pane fade adapt").attr({
 	    "id": dname+"-2",
@@ -188,7 +169,7 @@ $(function() {
 	editor.jindex = i;
 	editors.push(editor);		
 	$.ajax({
-	    url: inputs[i]+".json",
+	    url: "../data/"+inputs[i]+".json",
 	    Editor: editor,
 	    success: function(d) {
 		var jsonpayload = pretty_json(d);
@@ -208,7 +189,7 @@ $(function() {
 	editoro.json_feed = outputs[i]+".json";	
 	editoro.setReadOnly(true)
 	$.ajax({
-	    url: outputs[i]+".json",
+	    url: "../data/"+outputs[i]+".json",
 	    Editor: editoro,
 	    success: function(d) {
 		var jsonpayload = pretty_json(d);		
@@ -251,7 +232,7 @@ $(function() {
 	if(('env' in input_ace) && ('env' in output_ace)) {
 	    var input_editor = input_ace.env.editor;
 	    var output_editor = output_ace.env.editor;
-	    perform_action(input_editor,output_editor);
+	    perform_action(input_editor,output_editor,input_div,output_div);
 	} else {
 	    console.log(e.target); // newly activated tab
 	    console.log(e.relatedTarget); // previous active tab
