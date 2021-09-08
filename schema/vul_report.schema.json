@@ -1,0 +1,211 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://democert.org/cvd/vul_report.schema.json",
+    "title": "Vulnerability report provided by a security research(ers) or Finder(s)",
+    "description": "Vulnerability report should provide details of vulnerbaility and reporting actions taken by the Finder(s)",
+    "type": "object",
+    "properties": {
+	"document_type": {
+	    "type": "string",
+	    "description": "A string representing the type of document that is being considered. This value helps the routing engine of a CVD \"machine\".  Other values may be added later than the current \"vul_report\" as a constant string for this attribute",
+	    "enum": ["vul_report"]
+	},
+	"version": {
+	    "type": "string",
+	    "description": "Version of the vul report being submitted for processing.  Recommended semver like versioning",
+	    "example": "1.0.0"
+	},
+	"title": {
+	    "type": "string",
+	    "description": "Optional title given to your search performed",
+	    "example": "Search to report buffer overflow in Apache/httpd/2.0.1"
+	},
+	"stakeholders": {
+	    "type": "array",
+	    "description": "An array of stakeholders who will be part of this vulnerability report",
+	    "minItems": 1,
+	    "items": {
+		"type": "object",
+		"description": "Information about the stakeholder able to accept report from the security researcher",
+		"properties": {
+		    "type": {
+			"type": "string",
+			"description": "Type of contact/stakeholder who is able to accept vulnerability report from the researcher",
+			"enum": [
+			    "vendor",
+			    "vendor_psirt",
+			    "vendor_bugbounty",
+			    "bugbounty_third_party",
+			    "CERT",
+			    "CSIRT"
+			]
+		    },
+ 		    "roles": {
+ 			"type": "array",
+ 			"description": "Various roles played by this stakeholder such as \"finder\" , \"reporter\", \"vendor\" and such",
+ 			"minItems": 1,
+ 			"items": {
+ 			    "type": "string",
+ 			    "description": "Each distinct role this stakeholder would like to be associated with.  The generic \"other\" role is used for stakeholders who would like to be informed of a vulnerability report without an active role in the vulnerability coordination lifecycle",
+ 			    "enum": [
+ 				"finder",
+ 				"reporter",
+ 				"vendor",
+ 				"coordinator",
+ 				"deployer",
+				"bugbounty",
+ 				"other"
+ 				]
+ 			}
+ 		    },
+  		    "name": {
+  			"type": "string",
+  			"description": "Official or Friendly name of the stakeholder able to accept the report",
+		    
+		    "name": {
+			"type": "string",
+			"description": "Official or Friendly name of the stakeholder able to accept the report",
+			"examples": [
+			    "Microsoft",
+			    "Apache",
+			    "John Wayne"
+			]
+		    },
+		    "method": {
+			"type": "string",
+			"description": "Methods in which the Stakeholder can be reached. Either email or web forms ",
+			"enum": [
+			    "email",
+			    "web",
+			    "api",
+			    "pgp_email",
+			    "smime_email"
+			]
+		    },
+		    "contact_url": {
+			"type": "string",
+			"format": "uri",
+			"description": "URL of the stakeholder's contact method",
+			"examples": [
+			    "https://google.com/security",
+			    "mailto:security@intel.com"
+			]
+		    },
+		    "access": {
+			"type": "string",
+			"description": "Access, if any, required to reach the stakeholder",
+			"enum": [
+			    "public",
+			    "registered_user",
+			    "approval_required"
+			]
+		    },
+		    "access_tokens": {
+			"type": "array",
+			"description": "Type of access verificaction(s) required for becoming a trusted user or reporter",
+			"items": {
+			    "type": "string",
+			    "examples": [
+				"password",
+				"2fa",
+				"oauth"
+			    ]
+			}
+		    },
+		    "access_security": {
+			"type": "array",
+			"description": "Type of secure communications methods supported by the stakeholder",
+			"items": {
+			    "type": "string",
+			    "enum": [
+				"pgp",
+				"dane",
+				"smime",
+				"https"
+			    ]
+			}
+		    },
+		    "disclosure_rewards": {
+			"type": "array",
+			"description": "Type of rewards (financial and other) provided by the stakeholder for coordinated disclosure of vulnerabilities",
+			"items": {
+			    "type": "string",
+			    "enum": [
+				"bounty",
+				"swag",
+				"hall_of_fame"
+			    ]
+			}
+		    },
+		    "disclosure_timelines": {
+			"type": "string",
+			"format": "duration",
+			"description": "ISO 8601 ABNF denotion of duration",
+			"examples": [
+			    "30D"
+			]
+		    },
+		    "fees": {
+			"type": "string",
+			"description": "Optional information on any type of fees to be paid to be in the Bug Bounty or security reporting program",
+			"examples": [
+			    "USD100 one time",
+			    "EUR20 yearly"
+			]
+		    },
+		    "policy_url": {
+			"type": "string",
+			"description": "An URI where the policy with details of terms and conditions for reporting vulnerabilities is provided",
+			"format": "uri"
+		    },
+		    "last_verified": {
+			"type": "integer",
+			"description": "Timestamp in UNIX epoch seconds on when the information was last verified to be active"
+		    }
+		}
+	    },
+	    "required": [
+		"type",
+		"name",
+		"method",
+		"url",
+		"access",
+		"access_tokens",
+		"policy_url",
+		"contact_url",
+		"last_verified"
+	    ]
+	},
+	
+	"search": {
+	    "type": "array",
+	    "description": "An array of search criterea presented by the security researcher for finding vendor contacts",
+	    "minItems": 1,
+	    "items": {
+		"type": "object",
+		"description": "A tuple of vendor - product - version for performing the search. Minimum of vendor and product are required",
+		"minProperties": 2,
+		"properties": {
+		    "vendor" : {
+			"type": "string",
+			"description": "Vendor or provider of the software that has been found with vulnerabilitiy",
+			"examples": ["Microsoft","Apache Software Foundation","Linux Foundation"]
+		    },
+		    "product": {
+			"type": "string",
+			"description": "The software product that has been found with vulnerabilitiy",
+			"examples": ["Windows","httpd","awk"]
+		    },
+		    "version": {
+			"type": "string",
+			"description": "Version of the software product that has been found with vulnerability (optional)",
+			"examples": ["2000","2.4.0","1.0"]
+			
+		    }
+		}
+	    },
+	    "required": ["vendor", "product"]
+	}
+    },
+    "required": [ "document_type","version","search" ]
+}

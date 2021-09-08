@@ -26,7 +26,7 @@ function clear_schema() {
 function load_schema(a,offset) {
     var schema_url = "../schema/"+a.id;
     $.getJSON(schema_url).done(function(f) {
-	var xindex = parseInt(a.getAttribute('jindex')) + offset;
+	var xindex = parseInt(a.getAttribute('jindex'))*2 + offset;
 	a.classList.add("d-none");
 	$(".hide-schema").toggleClass("d-none");
 	editors[xindex].setValue(pretty_json(f));

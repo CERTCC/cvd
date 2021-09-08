@@ -6,46 +6,65 @@
 	{
 	    "type": "vendor_psirt",
 	    "name": "Microsoft",
-	    "method": "email",
-	    "contact_url": "mailto:security@microsoft.com",
-	    "access": "public",
-	    "policy_url": "https://microsoft.com/psirt/terms",
-	    "last_verified": 1629309447	    
+	    "contact_methods":[{
+		"method": "email",
+		"contact_url": "mailto:security@microsoft.com",
+		"contact_id": "security@microsoft.com",
+		"access": "public",
+		"last_verified": 1629309447
+		
+	    }],
+	    "policy_url": "https://microsoft.com/psirt/terms"
 	},
 	{
 	    "type": "vendor_bugbounty",
 	    "name": "Microsoft",
-	    "method": "email",
-	    "contact_url": "https://microsoft.com/bugbounty",
-	    "access": "registered_user",
-	    "fees": "unknown",
-	    "access_tokens": [ "password", "oauth"],	    
-	    "policy_url": "https://microsoft.com/bugbounty/terms",
-	    "last_verified": 1629309447	    
+	    "contact_methods": [
+		{	    
+		    "method": "web",
+		    "contact_url": "https://microsoft.com/bugbounty",
+		    "contact_id": "Contact-1",
+		    "access": "registered_user",
+		    "fees": "unknown",
+		    "access_tokens": [ "password", "oauth"],
+		    "last_verified": 1629309047
+		    
+		}
+	    ],
+	    "policy_url": "https://microsoft.com/bugbounty/terms"
 	},	
 	{
 	    "type": "bugbounty_third_party",
 	    "name": "Hacker One",
-	    "method": "web",
-	    "contact_url": "https://hackerone.com/sign_up",
-	    "access": "registered_user",
-	    "access_tokens": ["password", "2fa"],	    
-	    "fees": "none",
+	    "contact_methods": [ {
+		"method": "web",
+		"contact_url": "https://hackerone.com/sign_up",
+		"contact_id": "Contact-2",
+		"access": "registered_user",
+		"access_tokens": ["password", "2fa"],	    
+		"fees": "none",
+		"last_verified": 1629309447
+		
+	    }],
 	    "policy_url": "https://www.hackerone.com/terms/finder",
 	    "last_verified": 1629309447
 	},
 	{
 	    "type": "CERT",
 	    "name": "CERT",
-	    "method": "web",
-	    "contact_url": "https://kb.cert.org/vince",
-	    "access": "registered_user",
-	    "access_tokens": [ "api_key", "2fa"],
-	    "fees": "none",
-	    "schema": "https://vuls.cert.org/schemas/vul_report.schema.json",
-	    "submission": "HTTP_POST",
-	    "policy_url": "https://vuls.cert.org/confluence/display/Wiki/Vulnerability+Disclosure+Policy",
-	    "last_verified": 1629309447
+	    "contact_methods": [ {
+		"method": "web",
+		"contact_url": "https://kb.cert.org/vince",
+		"access": "registered_user",
+		"access_tokens": [ "api_key", "2fa"],
+		"contact_id": "CERT/CC",
+		"fees": "none",
+		"schema": "https://vuls.cert.org/schemas/vul_report.schema.json",
+		"submission": "HTTP_POST",
+		"last_verified": 1629309447
+		
+	    }],
+	    "policy_url": "https://vuls.cert.org/confluence/display/Wiki/Vulnerability+Disclosure+Policy"
 	}
     ],
     "inputs": [

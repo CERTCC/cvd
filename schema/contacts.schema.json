@@ -1,0 +1,118 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://democert.org/cvd/contacts.schema.json",
+    "title": "Contacts template for CVD coordination",
+    "description": "Contacts template for CVD coordination https://democert.org/cvd/",
+    "definitions": {
+  	"contacts": {
+ 	    "type": "array",
+ 	    "description": "An array of search criterea presented by the security researcher for finding vendor contacts",
+ 	    "minItems": 1,
+ 	    "items": {
+ 		"type": "object",
+ 		"description": "Contact informatiom about the stakeholder",
+ 		"properties": {
+ 		    "type" : {
+ 			"type": "string",
+ 			"description": "Type of contact/stakeholder who is able to accept vulnerability report from the researcher",
+ 			"enum": ["vendor","vendor_psirt","vendor_bugbounty","bugbounty_third_party","CERT","CSIRT"]
+ 		    },
+ 		    "name": {
+ 			"type": "string",
+ 			"description": "Friendly name of the contact",
+ 			"examples": ["Microsoft","Apache","John Wayne"]
+ 		    },
+ 		    "organization": {
+ 			"type": "string",
+ 			"description": "Official name of the organization represented by this contact.  Can use brand names if needed.",
+ 			"examples": ["Microsoft Inc.","Fidelity LLC.","Mario Francis"]
+ 		    },
+		    "contact_methods": {
+			"type": "array",
+			"description": "Various ways in which the stakeholder can be contacted",
+			"minItems": 1,
+			"items": {
+			    "type": "object",
+			    "properties": {
+ 				"type": {
+ 				    "type": "string",
+ 				    "description": "Methods in which the Stakeholder can be reached. Either email or web forms ",
+ 				    "enum": ["email","web","api"]
+ 				},
+ 				"contact_url": {
+ 				    "type": "string",
+ 				    "format": "uri",
+ 				    "description": "URL of the stakeholder's contact method",
+ 				    "examples": ["https://google.com/security_report","mailto:security@intel.com"]
+ 				},
+			    
+ 			    "access": {
+ 				"type": "string",
+ 				"description": "Access, if any, required to reach the stakeholder",
+ 				"enum": ["public","registered_user","approval_required"]
+ 			    },
+ 			    "access_tokens": {
+ 				"type": "array",
+ 				"description": "Type of access verification(s) required for becoming a trusted user or reporter",
+ 				"items": {
+ 				    "type": "string",
+ 				    "examples": ["password","2fa","oauth"]
+ 				}
+ 			    },
+ 			    "access_security": {
+ 				"type": "array",
+ 				"description": "Type of secure communications methods supported by the stakeholder",
+ 				"items" : {
+ 				    "type": "string",
+ 				    "enum": ["none","anonymous","pgp","dane","smime","https"]
+ 				}
+ 			    },
+ 			    "fees": {
+ 				"type": "string",
+ 				"description": "Optional information on any type of fees to be paid to be in the Bug Bounty or security reporting program",
+ 				"examples": ["USD100 one time","EUR20 yearly"]
+ 			    },
+ 			    "last_verified": {
+ 				"type": "integer",
+ 				"description": "UTC Timestamp in UNIX epoch seconds on when the information was last verified to be active"
+ 			    },
+ 			    "contact_id": {
+ 				"type": "string",
+ 				"description": "A unique identifier in the scope of this document to reference this contact.  This can be email or web address URL, contact registered/trademark name OR a generic UUID for this document. This is handy when the stakeholder is being referenced multiple times in a document",
+ 				"examples": ["mailto:security@microsoft.com","Contact-1","123e4567-e89b-12d3-a456-426614174000","db-primary-jey-11899"]
+ 			    }
+			    },
+			    "required": ["method","contact_url","contact_id","access","last_verified"]
+			    
+			}
+			 
+ 			
+			
+		    },
+ 		    "disclosure_rewards": {
+ 			"type": "array",
+ 			"description": "Type of rewards (financial and other) provided by the stakeholder for coordinated disclosure of vulnerabilities",
+ 			"items": {
+ 			    "type": "string",
+ 			    "enum": ["bounty","swag","hall_of_fame"]
+ 			}
+ 		    },
+ 		    "disclosure_timelines": {
+ 			"type": "object",
+ 			"type": "string",
+ 			"format": "duration",
+ 			"description": "ISO 8601 ABNF denotion of duration also know as Embargo time which the \"vendor\" or \"find\" would like to be the preferred disclosure timeline.  P30D stands for 30 Day time period",
+ 			"examples": ["P30D"]
+ 		    },
+ 		    "policy_url": {
+ 			"type": "string",
+ 			"description": "An URI where the policy with details of terms and conditions for reporting vulnerabilities is provided",
+ 			"format": "uri"
+ 		    }
+ 		},
+ 		"required": ["type","name","contact_methods","policy_url"]
+		
+	    }
+	}
+    }
+}

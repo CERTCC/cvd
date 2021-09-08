@@ -1,61 +1,42 @@
 {
-    "document_type": "vulnerability_report",
+    "document_type": "vul_report",
     "version": "1.0.0",
-    "description": "Vulnerability Reporting format CVD guide 2021.08.1101",
-    "contacts": [
+    "title": "Vulnerability Report submitted in regards to Windows Printserver vulnerabilities",
+    "stakeholders": [
 	{
-	    "type": "vendor",
-	    "role": "vendor",
-	    "name": "Microsoft",
-	    "organization": "Microsoft Inc.",
-	    "email": "security@microsoft.com",
-	    "contact_id": "security@microsoft.com",
-	    "policies": [
+	    "type": "CERT",
+	    "name": "CERT",
+	    "contact_methods": [
 		{
-		    "type": "bug_bounty",
-		    "value": "https://www.microsoft.com/en-us/msrc/bounty-terms",
-		    "description": "Microsoft Bounty Terms and Conditions"
-		},
-		{
-		    "type": "cvd",
-		    "value": "https://www.microsoft.com/en-us/msrc/cvd",
-		    "description": "PSIRT CVD guide"
+		    "method": "web",
+		    "contact_url": "https://kb.cert.org/vince",
+		    "access": "registered_user",
+		    "access_tokens": [
+			"api_key",
+			"2fa"
+		    ],
+		    "contact_id": "CERT/CC",
+		    "fees": "none",
+		    "schema": "https://vuls.cert.org/schemas/vul_report.schema.json",
+		    "submission": "HTTP_POST",
+		    "last_verified": 1629309447
 		}
 	    ],
-	    "contact_methods":[
-		{
-		    "type": "email",
-		    "pgp": true,
-		    "pgp_keyid": "a8e59fcfe1ca6b35",
-		    "value": "security@microsoft.com"
-		},
-		{
-		    "type": "webform",
-		    "value": "https://security-report.microsoft.com"
-		}
-	    ]
+	    "policy_url": "https://vuls.cert.org/confluence/display/Wiki/Vulnerability+Disclosure+Policy"
 	},
 	{
-	    "type": "reporter",
-	    "role": "finder",
-	    "name": "Joe Dane",
-	    "organization": "Boo Security LLC",
-	    "email": "joe.dane@hacker.com",
-	    "contact_id": "joe.dane@hacker.com",
-	    "share_with_vendor": true,
-	    "public_acknowledgement": true,
-	    "policies": [],
-	    "contact_methods":[
+	    "type": "vendor_psirt",
+	    "name": "Microsoft",
+	    "contact_methods": [
 		{
-		    "type": "social",
-		    "value": "twitter/@joedane"
-		},
-		{
-		    "type": "email",
-		    "pgp": false,
-		    "value": "joe.dane@hacker.com"
+		    "method": "email",
+		    "contact_url": "mailto:security@microsoft.com",
+		    "contact_id": "security@microsoft.com",
+		    "access": "public",
+		    "last_verified": 1629309447
 		}
-	    ]
+	    ],
+	    "policy_url": "https://microsoft.com/psirt/terms"
 	},
 	{
 	    "type": "reporter",
@@ -65,13 +46,21 @@
 	    "email": "lisa.davis@vulfind.com",
 	    "contact_id": "lisa.david@vulfind.com",
 	    "share_with_vendor": true,
-	    "public_acknowledgement": true,
-	    "policies": [
-		{
-		    "type": "bug_bounty",
-		    "url": "https://www.hackerone.com/terms/supplier-security"
-		}
-	    ]
+	    "public_acknowledgement": true
+	}
+    ],
+    "contacts": [
+	{
+	    "role": "coordinator",
+	    "contact_id": "CERT/CC"
+	},
+	{
+	    "role": "finder",
+	    "contact_id": "lisa.david@vulfind.com"
+	},
+	{
+	    "role": "vendor",
+	    "contact_id": "security@microsoft.com"
 	}
     ],
     "vulnerabilities": [

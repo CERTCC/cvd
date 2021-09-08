@@ -1,0 +1,20 @@
+{
+    "roles": {
+	"type": "array",
+	"description": "Various roles played by this stakeholder such as \"finder\" , \"reporter\", \"vendor\" and such for a particular report or case.",
+	"minItems": 1,
+	"items": {
+ 	    "type": "string",
+ 	    "description": "Each distinct role this stakeholder would like to be associated with.  The generic \"other\" role is used for stakeholders who would like to be informed of a vulnerability report without an active role in the vulnerability coordination lifecycle",
+ 	    "enum": [
+ 		"finder",
+ 		"reporter",
+ 		"vendor",
+ 		"coordinator",
+ 		"deployer",
+     		"other",
+		"bugbounty"
+ 	    ]
+	}
+    }
+}
