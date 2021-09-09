@@ -4,7 +4,8 @@
     "title": "Results for Vulnerability reporting discovery search results for Microsoft/Windows printserver vulnerability that can result in RCE using CERT API",
     "stakeholders": [
 	{
-	    "type": "vendor_psirt",
+	    "type": "vendor",
+	    "subtype": "psirt",
 	    "name": "Microsoft",
 	    "contact_methods":[{
 		"method": "email",
@@ -12,12 +13,15 @@
 		"contact_id": "security@microsoft.com",
 		"access": "public",
 		"last_verified": 1629309447
-		
+	    }],
+	    "locations": [{
+		"country_code": "US"
 	    }],
 	    "policy_url": "https://microsoft.com/psirt/terms"
 	},
 	{
-	    "type": "vendor_bugbounty",
+	    "type": "vendor",
+	    "subtype": "bugbounty",
 	    "name": "Microsoft",
 	    "contact_methods": [
 		{	    
@@ -28,13 +32,20 @@
 		    "fees": "unknown",
 		    "access_tokens": [ "password", "oauth"],
 		    "last_verified": 1629309047
-		    
 		}
 	    ],
-	    "policy_url": "https://microsoft.com/bugbounty/terms"
+	    "locations": [
+		{ "country_code": "US" },
+		{ "country_code": "UK" }
+	    ],
+	    "policy_url": [
+		"https://microsoft.com/bugbounty/terms",
+		"https://microsoft.co.uk/bugbounty/terms"
+		]
 	},	
 	{
-	    "type": "bugbounty_third_party",
+	    "type": "coordinator",
+	    "subtype": "bugbounty",
 	    "name": "Hacker One",
 	    "contact_methods": [ {
 		"method": "web",
@@ -46,11 +57,15 @@
 		"last_verified": 1629309447
 		
 	    }],
+	    "locations": [
+		{ "country_code": "US" }
+	    ],	    
 	    "policy_url": "https://www.hackerone.com/terms/finder",
 	    "last_verified": 1629309447
 	},
 	{
-	    "type": "CERT",
+	    "type": "coordinator",
+	    "subtype": "cert",
 	    "name": "CERT",
 	    "contact_methods": [ {
 		"method": "web",
@@ -61,9 +76,9 @@
 		"fees": "none",
 		"schema": "https://vuls.cert.org/schemas/vul_report.schema.json",
 		"submission": "HTTP_POST",
-		"last_verified": 1629309447
-		
+		"last_verified": 1629309447		
 	    }],
+	    "locations" : [{"country_code":"US"}],
 	    "policy_url": "https://vuls.cert.org/confluence/display/Wiki/Vulnerability+Disclosure+Policy"
 	}
     ],

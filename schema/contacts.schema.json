@@ -4,6 +4,31 @@
     "title": "Contacts template for CVD coordination",
     "description": "Contacts template for CVD coordination https://democert.org/cvd/",
     "definitions": {
+	"location": {
+	    "type": "object",
+	    "properties": {
+		"street_address":{
+		    "type": "string",
+		    "description": "Street address of the organization"
+		},
+		"city": {
+		    "type": "string",
+		    "description": "City where the organization is registered or located"
+		},
+		"state": { 
+		    "type": "string",
+		    "description": "State or Province where the organization is registered or located"
+		},
+		"country_code": {
+		    "title": "ISO 3166-1 Alpha-2 Country codes",
+		    "description": "A valid 2-digit ISO country code (ISO 3166-1 alpha-2), or, an array of valid ISO codes where organization is registered or located",
+		    "type": "string",
+		    "pattern": "^[A-Z]{2}$"
+		},
+			"required": ["country_code"]
+		
+	    }
+	},
   	"contacts": {
  	    "type": "array",
  	    "description": "An array of search criterea presented by the security researcher for finding vendor contacts",
@@ -14,9 +39,14 @@
  		"properties": {
  		    "type" : {
  			"type": "string",
- 			"description": "Type of contact/stakeholder who is able to accept vulnerability report from the researcher",
- 			"enum": ["vendor","vendor_psirt","vendor_bugbounty","bugbounty_third_party","CERT","CSIRT"]
+ 			"description": "The type information just specifies typical Role played by this contact.  However this role is not restrictive and can be appended or changed along the CVD process.  The 'other' role is played by acontact  who would like to be informed of a vulnerability report without an active role in the vulnerability coordination lifecycle - like CISA",
+ 			"enum": ["finder","reporter","coordinator","vendor","deployer","other"]
  		    },
+		    "subtype": {
+			"type": "string",
+ 			"description": "The subtype information tries to identify if a specific variant of a Role. For example a 'psirt' is a subtype of 'vendor' or 'bugbounty' is a subtype of 'coordinator'.  Just as in the 'type' field this field is also not restrictive and can be appended or changed along the CVD process",
+			"examples": ["psirt","bugbounty","csirt","cert","nat-csirt","ics-cert"]
+		    },
  		    "name": {
  			"type": "string",
  			"description": "Friendly name of the contact",
@@ -45,49 +75,46 @@
  				    "description": "URL of the stakeholder's contact method",
  				    "examples": ["https://google.com/security_report","mailto:security@intel.com"]
  				},
-			    
- 			    "access": {
- 				"type": "string",
- 				"description": "Access, if any, required to reach the stakeholder",
- 				"enum": ["public","registered_user","approval_required"]
- 			    },
- 			    "access_tokens": {
- 				"type": "array",
- 				"description": "Type of access verification(s) required for becoming a trusted user or reporter",
- 				"items": {
+				
+ 				"access": {
  				    "type": "string",
- 				    "examples": ["password","2fa","oauth"]
- 				}
- 			    },
- 			    "access_security": {
- 				"type": "array",
- 				"description": "Type of secure communications methods supported by the stakeholder",
- 				"items" : {
+ 				    "description": "Access, if any, required to reach the stakeholder",
+ 				    "enum": ["public","registered_user","approval_required"]
+ 				},
+ 				"access_tokens": {
+ 				    "type": "array",
+ 				    "description": "Type of access verification(s) required for becoming a trusted user or reporter",
+ 				    "items": {
+ 					"type": "string",
+ 					"examples": ["password","2fa","oauth"]
+ 				    }
+ 				},
+ 				"access_security": {
+ 				    "type": "array",
+ 				    "description": "Type of secure communications methods supported by the stakeholder",
+ 				    "items" : {
+ 					"type": "string",
+ 					"enum": ["none","anonymous","pgp","dane","smime","https"]
+ 				    }
+ 				},
+ 				"fees": {
  				    "type": "string",
- 				    "enum": ["none","anonymous","pgp","dane","smime","https"]
+ 				    "description": "Optional information on any type of fees to be paid to be in the Bug Bounty or security reporting program",
+ 				    "examples": ["USD100 one time","EUR20 yearly"]
+ 				},
+ 				"last_verified": {
+ 				    "type": "integer",
+ 				    "description": "UTC Timestamp in UNIX epoch seconds on when the information was last verified to be active"
+ 				},
+ 				"contact_id": {
+ 				    "type": "string",
+ 				    "description": "A unique identifier in the scope of this document to reference this contact.  This can be email or web address URL, contact registered/trademark name OR a generic UUID for this document. This is handy when the stakeholder is being referenced multiple times in a document",
+ 				    "examples": ["mailto:security@microsoft.com","Contact-1","123e4567-e89b-12d3-a456-426614174000","db-primary-key-11899"]
  				}
- 			    },
- 			    "fees": {
- 				"type": "string",
- 				"description": "Optional information on any type of fees to be paid to be in the Bug Bounty or security reporting program",
- 				"examples": ["USD100 one time","EUR20 yearly"]
- 			    },
- 			    "last_verified": {
- 				"type": "integer",
- 				"description": "UTC Timestamp in UNIX epoch seconds on when the information was last verified to be active"
- 			    },
- 			    "contact_id": {
- 				"type": "string",
- 				"description": "A unique identifier in the scope of this document to reference this contact.  This can be email or web address URL, contact registered/trademark name OR a generic UUID for this document. This is handy when the stakeholder is being referenced multiple times in a document",
- 				"examples": ["mailto:security@microsoft.com","Contact-1","123e4567-e89b-12d3-a456-426614174000","db-primary-jey-11899"]
- 			    }
 			    },
 			    "required": ["method","contact_url","contact_id","access","last_verified"]
 			    
 			}
-			 
- 			
-			
 		    },
  		    "disclosure_rewards": {
  			"type": "array",
@@ -105,12 +132,31 @@
  			"examples": ["P30D"]
  		    },
  		    "policy_url": {
- 			"type": "string",
- 			"description": "An URI where the policy with details of terms and conditions for reporting vulnerabilities is provided",
- 			"format": "uri"
- 		    }
+ 			"description": "An URI or multiple URI's where the policy with details of terms and conditions for reporting vulnerabilities is provided",
+			"oneOf": [
+ 			    {
+				"type": "string",
+ 				"format": "uri"
+			    },
+			    {
+				"type": "array",
+				"minItems": 1,
+				"items": {
+				    "type": "string",
+ 				    "format": "uri"
+				}
+			    }
+			]
+ 		    },
+		    "locations": {
+			"type": "array",
+			"minItems": 1,
+			"items": {
+			    "$ref": "#/definitions/location"
+			}
+		    }
  		},
- 		"required": ["type","name","contact_methods","policy_url"]
+ 		"required": ["type","name","contact_methods","policy_url","locations"]
 		
 	    }
 	}

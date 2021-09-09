@@ -4,7 +4,26 @@
     "title": "Vulnerability Report submitted in regards to Windows Printserver vulnerabilities",
     "stakeholders": [
 	{
-	    "type": "CERT",
+	    "type": "reporter",
+	    "name": "Lisa Davis",
+	    "organization": "Lisa Davis",
+	    "contact_methods": [
+		{
+		    "method": "email",
+		    "access": "public",
+		    "contact_url": "mailto:lisa.davis@vulfind.com",
+		    "contact_id": "lisa.david@vulfind.com",
+		    "last_verified": 1631213006
+		}
+	    ],
+	    "locations": [
+		{ "country_code": "US" }
+	    ],
+	    "policy_url": "about:none"
+	},	
+	{
+	    "type": "coordinator",
+	    "subtype": "cert",
 	    "name": "CERT",
 	    "contact_methods": [
 		{
@@ -22,10 +41,16 @@
 		    "last_verified": 1629309447
 		}
 	    ],
+	    "locations": [
+		{
+		    "country_code": "US"
+		}
+	    ],
 	    "policy_url": "https://vuls.cert.org/confluence/display/Wiki/Vulnerability+Disclosure+Policy"
 	},
 	{
-	    "type": "vendor_psirt",
+	    "type": "vendor",
+	    "subtype": "psirt",
 	    "name": "Microsoft",
 	    "contact_methods": [
 		{
@@ -36,32 +61,14 @@
 		    "last_verified": 1629309447
 		}
 	    ],
+	    "locations": [
+		{
+		    "country_code": "US"
+		}
+	    ],
 	    "policy_url": "https://microsoft.com/psirt/terms"
-	},
-	{
-	    "type": "reporter",
-	    "role": "finder",
-	    "name": "Lisa Davis",
-	    "organization": "Lisa Davis",
-	    "email": "lisa.davis@vulfind.com",
-	    "contact_id": "lisa.david@vulfind.com",
-	    "share_with_vendor": true,
-	    "public_acknowledgement": true
 	}
-    ],
-    "contacts": [
-	{
-	    "role": "coordinator",
-	    "contact_id": "CERT/CC"
-	},
-	{
-	    "role": "finder",
-	    "contact_id": "lisa.david@vulfind.com"
-	},
-	{
-	    "role": "vendor",
-	    "contact_id": "security@microsoft.com"
-	}
+	
     ],
     "vulnerabilities": [
 	{
@@ -201,7 +208,7 @@
 	    
 	}
     ],
-    "product_tree": [
+    "product_tree": 
 	{
 	    "branches": [
 		{
@@ -234,5 +241,5 @@
 		}
 	    ]
 	}
-    ]
+    
 }
